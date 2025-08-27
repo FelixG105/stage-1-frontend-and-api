@@ -5,7 +5,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["dist"] },
+  { ignorePatterns: ["dist", ".eslintrc.cjs"] },
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
@@ -34,6 +34,13 @@ export default [
         { allowConstantExport: true },
       ],
       "react/prop-types": 0,
+      quotes: ["off"],
     },
+
+    overrides: [
+      {
+        files: ["*.js", "*.jsx"],
+      },
+    ],
   },
 ];
