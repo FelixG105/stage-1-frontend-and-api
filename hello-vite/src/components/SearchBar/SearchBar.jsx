@@ -1,12 +1,12 @@
 import React from "react";
 import "./SearchBar.css";
-import searchBackground from "../../assets/images/search-background.jpg";
+// import searchBackground from "../../assets/images/search-background.jpg";
 
-function SearchBar({ onSearch, value, onChange }) {
+function SearchBar({ value, onChange, onSubmit }) {
   return (
     <div
       className="search__section"
-      style={{ backgroundImage: `url(${searchBackground})` }}
+      //   style={{ backgroundImage: `url(${searchBackground})` }}
     >
       <h1 className="search__title">What's going on in the world?</h1>
       <p className="search__caption">
@@ -21,7 +21,7 @@ function SearchBar({ onSearch, value, onChange }) {
           value={value}
           onChange={onChange}
         />
-        <button className="search__btn" type="submit" onClick={onSearch}>
+        <button className="search__btn" type="submit" onClick={onSubmit}>
           Search
         </button>
       </div>

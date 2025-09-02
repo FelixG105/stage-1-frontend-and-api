@@ -7,16 +7,12 @@ function Results({ results }) {
   const query = queryParams.get("query");
 
   return (
-    <main className="results-page">
+    <main className="results__page">
       <h2>Search results for "{query}"</h2>
       {results.length > 0 ? (
-        <div className="results-cards">
-          {results.map((article, index) => (
-            <NewsCard key={index} article={article} />
-          ))}
-        </div>
+        results.map((article, i) => <NewsCard key={i} article={article} />)
       ) : (
-        <p>No results found. Try searching again.</p>
+        <p>No results found.</p>
       )}
     </main>
   );

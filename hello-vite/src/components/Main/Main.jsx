@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import About from "../About/About";
 
-function Main() {
+function Main({ onSearch }) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      // Navigate to results page with query
-      navigate(`/results?query=${encodeURIComponent(query)}`);
-    }
+    if (!query.trim()) return;
+
+    onSearch(query); // trigger API fetch in App
+    navigate(`/results?query=${encodeURIComponent(query)}`); // redirect
   };
 
   return (

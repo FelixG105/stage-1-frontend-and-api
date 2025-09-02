@@ -10,18 +10,18 @@ export default function Header({
 }) {
   return (
     <header className={`header ${className}`}>
-      <div className="header-left">
-        <h1>NewsExplorer</h1>
+      <div className="header__left">
+        <h1 className="header__logo">NewsExplorer</h1>
       </div>
       <nav className="header-right">
-        {currentUser ? (
+        {/* {currentUser ? (
           <button onClick={onSignOut}>Sign Out</button>
         ) : (
           <>
             <button onClick={onSignInClick}>Sign In</button>
             <button onClick={onSignUpClick}>Sign Up</button>
-          </>
-        )}
+          </> */}
+        {/* )} */}
         <button>Home</button>
         <button>Nav</button>
       </nav>

@@ -9,6 +9,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { signIn, signUp, validateToken, signOut } from "../../utils/auth";
+import { fetchNews } from "../../utils/newsAPI";
 
 function App() {
   const location = useLocation();
@@ -67,12 +68,10 @@ function App() {
   }, []);
 
   // Search
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-    //  TODO: fetch news API with query
-    setSearchResults([]);
-
-    navigate(`/results?query=${encodeURIComponent(query)}`);
+  const handleSearch = async (query) => {
+    const results = await fetchNews(query); // fetch from API
+    setSearchResults(results); // store results in state
+    navigate(`/results?query=${encodeURIComponent(query)}`); // redirect
   };
 
   return (
@@ -88,7 +87,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Main onSearch={handleSearch} results={searchResults} />}
+          element={<Main onSearch={handleSearch} results={handleSearch} />}
         />
         <Route path="/results" element={<Results results={searchResults} />} />
       </Routes>
