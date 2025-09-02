@@ -8,8 +8,9 @@ import Results from "../Results/Results";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { signIn, signUp, validateToken, signOut } from "../../utils/auth";
-import { fetchNews } from "../../utils/newsAPI";
+// import { signIn, signUp, validateToken, signOut } from "../../utils/auth";
+// import { fetchNews } from "../../utils/newsAPI";
+import { mockNews } from "../../utils/constants";
 
 function App() {
   const location = useLocation();
@@ -69,9 +70,13 @@ function App() {
 
   // Search
   const handleSearch = async (query) => {
-    const results = await fetchNews(query); // fetch from API
-    setSearchResults(results); // store results in state
-    navigate(`/results?query=${encodeURIComponent(query)}`); // redirect
+    console.log("Search query:", query);
+
+    // Instead of fetching from API, just use mock data
+    setSearchResults(mockNews);
+
+    // Navigate to results page
+    navigate(`/results?query=${encodeURIComponent(query)}`);
   };
 
   return (
