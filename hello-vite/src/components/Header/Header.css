@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  top: 0;
+  z-index: 1000;
+}
+
+.header.header--transparent {
+  position: absolute; /* overlap the page content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  z-index: 10; /* make sure it’s above the SearchBar */
+}
+
+.header--solid {
+  background-color: rgba(255, 255, 255, 0.95); /* solid for other pages */
+  color: #000;
+}
+
+.header-left h1 {
+  font-size: 1.5rem;
+}
+
+.header-right button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header-right button:hover {
+  background-color: #005fa3;
+}
