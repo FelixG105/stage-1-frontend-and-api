@@ -10,9 +10,13 @@ function Results({ results }) {
     <main className="results__page">
       <h2>Search results for "{query}"</h2>
       {results.length > 0 ? (
-        results.map((article, i) => <NewsCard key={i} article={article} />)
+        <div className="results-cards">
+          {results.map((article) => (
+            <NewsCard key={article.uuid} article={article} />
+          ))}
+        </div>
       ) : (
-        <p>No results found.</p>
+        <p>No results found. Try searching again.</p>
       )}
     </main>
   );

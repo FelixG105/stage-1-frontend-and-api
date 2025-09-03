@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 export default function Header({
@@ -8,22 +9,25 @@ export default function Header({
   currentUser,
   className,
 }) {
+  const navigate = useNavigate();
   return (
     <header className={`header ${className}`}>
       <div className="header__left">
         <h1 className="header__logo">NewsExplorer</h1>
       </div>
       <nav className="header-right">
-        {/* {currentUser ? (
+        {/* ✅ Home always visible */}
+        <button onClick={() => navigate("/")}>Home</button>
+
+        {currentUser ? (
+          // Logged in
           <button onClick={onSignOut}>Sign Out</button>
         ) : (
+          // Logged out
           <>
             <button onClick={onSignInClick}>Sign In</button>
-            <button onClick={onSignUpClick}>Sign Up</button>
-          </> */}
-        {/* )} */}
-        <button>Home</button>
-        <button>Nav</button>
+          </>
+        )}
       </nav>
     </header>
   );

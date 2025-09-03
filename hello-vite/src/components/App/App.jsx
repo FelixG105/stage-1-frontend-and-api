@@ -72,10 +72,11 @@ function App() {
   const handleSearch = async (query) => {
     console.log("Search query:", query);
 
-    // Instead of fetching from API, just use mock data
-    setSearchResults(mockNews);
+    const results = mockNews.filter((article) =>
+      article.title.toLowerCase().includes(query.toLowerCase())
+    );
 
-    // Navigate to results page
+    setSearchResults(results);
     navigate(`/results?query=${encodeURIComponent(query)}`);
   };
 
@@ -95,6 +96,7 @@ function App() {
           element={<Main onSearch={handleSearch} results={handleSearch} />}
         />
         <Route path="/results" element={<Results results={searchResults} />} />
+        {/* <Route path="/saved-news" element={<SavedNews />}></Route> */}
       </Routes>
 
       {/* Modals */}
