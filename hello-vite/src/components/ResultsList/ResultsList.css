@@ -1,0 +1,8 @@
+.results__section {
+  padding: 60px 104px;
+}
+
+.results__cards {
+  gap: 16px;
+  display: grid;
+}

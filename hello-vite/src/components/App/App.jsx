@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Results from "../Results/Results";
+import ResultsPage from "../ResultsPage/ResultsPage";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
@@ -95,7 +95,12 @@ function App() {
           path="/"
           element={<Main onSearch={handleSearch} results={handleSearch} />}
         />
-        <Route path="/results" element={<Results results={searchResults} />} />
+        <Route
+          path="/results"
+          element={
+            <ResultsPage onSearch={handleSearch} results={searchResults} />
+          }
+        />
         {/* <Route path="/saved-news" element={<SavedNews />}></Route> */}
       </Routes>
 

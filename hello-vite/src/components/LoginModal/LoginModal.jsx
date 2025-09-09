@@ -37,8 +37,8 @@ function LogInModal({
 
   return (
     <ModalWithForm
-      title="Log In"
-      buttonText="Log In"
+      title="Sign In"
+      buttonText="Sign In"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -51,7 +51,7 @@ function LogInModal({
           type="email"
           className="modal__input"
           id="email-address"
-          placeholder="Email"
+          placeholder="Enter Email"
           required
           minLength="1"
           maxLength="30"
@@ -66,7 +66,7 @@ function LogInModal({
           type="password"
           className="modal__input"
           id="password"
-          placeholder="Password"
+          placeholder="Enter Password"
           required
           minLength="1"
           maxLength="30"

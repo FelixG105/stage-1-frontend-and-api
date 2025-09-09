@@ -1,16 +1,17 @@
 import { useLocation } from "react-router-dom";
 import NewsCard from "../NewsCard/NewsCard";
+import "./ResultsList.css";
 
-function Results({ results }) {
+function ResultsList({ results }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query");
 
   return (
-    <main className="results__page">
-      <h2>Search results for "{query}"</h2>
+    <section className="results__section">
+      <h2 className="results__section-title">Search results for "{query}"</h2>
       {results.length > 0 ? (
-        <div className="results-cards">
+        <div className="results__cards">
           {results.map((article) => (
             <NewsCard key={article.uuid} article={article} />
           ))}
@@ -18,8 +19,8 @@ function Results({ results }) {
       ) : (
         <p>No results found. Try searching again.</p>
       )}
-    </main>
+    </section>
   );
 }
 
-export default Results;
+export default ResultsList;
