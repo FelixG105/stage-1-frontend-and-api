@@ -10,7 +10,7 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 // import { signIn, signUp, validateToken, signOut } from "../../utils/auth";
 // import { fetchNews } from "../../utils/newsAPI";
-import { mockNews } from "../../utils/constants";
+import { searchNews } from "../../utils/newsAPI";
 
 function App() {
   const location = useLocation();
@@ -20,7 +20,7 @@ function App() {
     location.pathname === "/" ? "header--transparent" : "header--solid";
 
   // This determines if the search container should show
-  const [searchResults, setSearchResults] = useState([]);
+  const [results, setResults] = useState([]);
 
   const [activeModal, setActiveModal] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
@@ -69,15 +69,16 @@ function App() {
   }, []);
 
   // Search
+
   const handleSearch = async (query) => {
-    console.log("Search query:", query);
-
-    const results = mockNews.filter((article) =>
-      article.title.toLowerCase().includes(query.toLowerCase())
-    );
-
-    setSearchResults(results);
-    navigate(`/results?query=${encodeURIComponent(query)}`);
+    try {
+      const articles = await searchNews(query);
+      setResults(articles);
+      setError("");
+      navigate(`/results?query=${encodeURIComponent(query)}`);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
@@ -97,9 +98,7 @@ function App() {
         />
         <Route
           path="/results"
-          element={
-            <ResultsPage onSearch={handleSearch} results={searchResults} />
-          }
+          element={<ResultsPage onSearch={handleSearch} results={results} />}
         />
         {/* <Route path="/saved-news" element={<SavedNews />}></Route> */}
       </Routes>

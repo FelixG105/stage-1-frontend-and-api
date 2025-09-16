@@ -1,22 +1,39 @@
 // src/utils/newsApi.js
-const API_KEY = "KNlq6M0TNPzMPQfigVDWvm2tEaGAJ5k4XUlqsnU0"; // replace with your key
-const BASE_URL = "https://api.thenewsapi.com/v1/news/all";
+const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY; // replace with your key
+const BASE_URL =
+  import.meta.env.MODE === "production"
+    ? import.meta.env.VITE_NEWS_PROXY_URL
+    : import.meta.env.VITE_NEWS_API_URL;
 
-export async function fetchNews(query) {
+// helper: format date to YYYY-MM-DD
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
+}
+
+export async function searchNews(query) {
+  if (!query.trim()) {
+    throw new Error("Please enter a keyword");
+  }
+
+  const today = new Date();
+  const lastWeek = new Date();
+  lastWeek.setDate(today.getDate() - 7);
+
+  const url = `${BASE_URL}?q=${encodeURIComponent(
+    query
+  )}&apiKey=${NEWS_API_KEY}&from=${formatDate(lastWeek)}&to=${formatDate(
+    today
+  )}&pageSize=100`;
+
   try {
-    const url = `${BASE_URL}?q=${encodeURIComponent(
-      query
-    )}&api_token=${API_KEY}&language=en&limit=20`;
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch news");
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status}`);
     }
-
-    const data = await response.json();
-    return data.data; // The API returns results in `data`
+    const data = await res.json();
+    return data.articles || [];
   } catch (err) {
-    console.error(err);
+    console.error("Failed to fetch news:", err);
     return [];
   }
 }

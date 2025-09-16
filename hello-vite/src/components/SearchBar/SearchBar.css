@@ -31,7 +31,7 @@
 
 .search__text-input {
   padding: 12px 16px;
-  border: 1px solid #ccc;
+  border: transparent;
   border-right: none;
   border-radius: 30px;
   outline: none;
@@ -45,7 +45,7 @@
 
 .search__btn {
   padding: 12px 24px;
-  border: 1px solid #ccc;
+  border: transparent;
   border-left: none;
   border-radius: 30px;
   background-color: #2f71e5;

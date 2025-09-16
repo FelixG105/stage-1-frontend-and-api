@@ -11,7 +11,7 @@ export const mockNews = [
     published_at: "2025-09-02T12:00:00Z",
   },
   {
-    uuid: "1",
+    uuid: "1.1",
     title: "Breaking News: AI Takes Over the World",
     description:
       "In a stunning development, AI is now controlling everything...",
@@ -22,7 +22,7 @@ export const mockNews = [
     published_at: "2025-09-02T12:00:00Z",
   },
   {
-    uuid: "1",
+    uuid: "1.2",
     title: "Breaking News: AI Takes Over the World",
     description:
       "In a stunning development, AI is now controlling everything...",

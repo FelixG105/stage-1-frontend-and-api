@@ -1,30 +1,50 @@
 import React from "react";
+import { useState } from "react";
 import "./SearchBar.css";
-// import searchBackground from "../../assets/images/search-background.jpg";
 
-function SearchBar({ value, onChange, onSubmit }) {
+function SearchBar({ setResults }) {
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    setError(""); // clear error when typing
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!query.trim()) {
+      setError("Please enter a keyword");
+      return;
+    }
+
+    try {
+      const today = new Date().toISOString().split("T")[0];
+      const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0];
+
+      const url = `${BASE_URL}?q=${query}&apiKey=${NEWS_API_KEY}&from=${lastWeek}&to=${today}&pageSize=100`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setResults(data.articles || []); // send results up to parent
+    } catch (err) {
+      console.error("Error fetching articles:", err);
+      setError("Something went wrong. Try again later.");
+    }
+  };
+
   return (
-    <div
-      className="search__section"
-      //   style={{ backgroundImage: `url(${searchBackground})` }}
-    >
-      <h1 className="search__title">What's going on in the world?</h1>
-      <p className="search__caption">
-        Find the latest news on any topic and save articles in your personal
-        account.
-      </p>
-      <div className="search__bar">
-        <input
-          className="search__text-input"
-          type="text"
-          placeholder="Search news..."
-          value={value}
-          onChange={onChange}
-        />
-        <button className="search__btn" type="submit" onClick={onSubmit}>
-          Search
-        </button>
-      </div>
+    <div>
+      <SearchBar
+        value={query}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+      {error && <p className="search__error">{error}</p>}
     </div>
   );
 }
